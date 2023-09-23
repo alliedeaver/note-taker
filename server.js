@@ -3,10 +3,6 @@ const routes = require('./routes');
 const path = require("path");
 const fs = require("fs");
 const util = require('util');
-const { readFromFile, readAndAppend } = require('./helpers/fsUtils');
-
-const util = require('util');
-const { readFromFile, readAndAppend } = require('./helpers/fsUtils');
 
 const data = require("./db.json");
 const PORT = 3002;
@@ -68,7 +64,7 @@ app.post('/api/notes', (req, res) => {
 
 //GET * to return index.html
 app.get * ('/api/', (req, res) => {
-    res.return
+    res.return(path,join(__dirname, './public/index.html'))
 })
 
 app.listen(PORT, () =>
