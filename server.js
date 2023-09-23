@@ -25,6 +25,11 @@ app.use(express.static('public'));
 
 app.get('/api/notes', (req, res) => res.json(data));
 
+//or 
+app.get('/', (req, res) =>
+res.readFromFile(path.join(__dirname, '/public/index.html'))
+);
+
 // POST/api/notes to read the db.json
 
 app.post('/api/db.json, (req, res) => {
