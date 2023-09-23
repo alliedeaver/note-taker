@@ -2,7 +2,6 @@ const express = require("express");
 const routes = require('./routes');
 const path = require("path");
 const fs = require("fs");
-const util = require('util');
 
 const data = require("./db.json");
 const PORT = 3002;
@@ -22,24 +21,20 @@ app.get('/api/notes', (req, res) => res.json(data));
 
 //or 
 app.get('/', (req, res) =>
-res.readFromFile(path.join(__dirname, '/public/index.html'))
+res.send(path.join(__dirname, '/public/index.html'))
 );
 
 // POST/api/notes to read the db.json
 
-app.post('/api/db.json, (req, res) => {
-    if (req.body && req.params.readData) {
-    console.info(`${req.method} read the db.json file`);
-    const readData = req.params.readData;
-    for (let i = 0; i < data.length; i++) {
-        const dataBase = data[i];
-        if (dataBase.readData === readData) {
-            dataBase.db += 1;
-            res.json(`notes read: ${dataBase.db}!`);
-            return;
-        }
+app.post('/api/notes', (req, res) => {
+    if (req.body) {
+        console.info(`${req.method} new note received`);
+        data.push(req.body);
+        fs.writeFileSync('./db.json', JSON.stringify(data));
+        res.json(req.body);
+    } else {
+        res.status(400).json('Request body is missing');
     }
-    res.json('Review ID not found');
 });
 
 
@@ -50,7 +45,7 @@ app.post('/api/notes', (req, res) => {
 
 //give each note a unique ID
 
-if (title && note {
+if (title && note) {
     // Variable for the object we will save
     const newNote = {
       title,
@@ -58,7 +53,7 @@ if (title && note {
       review_id: uuid(),
     };
 
-});
+};
 
     //GET for the notes.html
     app.get('/', (req, res) =>
@@ -67,8 +62,8 @@ if (title && note {
 
 
 //GET * to return index.html
-app.get * ('/api/', (req, res) => {
-    res.return(path,join(__dirname, './public/index.html'))
+app.get* ('/api/', (req, res) => {
+    res.return(path,join(__dirname, '/public/index.html'))
 })
 
 app.listen(PORT, () =>
