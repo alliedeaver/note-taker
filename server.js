@@ -16,7 +16,6 @@ app.use(express.static('public'));
 
 
 
-
 //GET/api/notes to read db.json
 
 app.get('/api/notes', (req, res) => res.json(data));
@@ -51,10 +50,15 @@ app.post('/api/notes', (req, res) => {
 
 //give each note a unique ID
 
-// const newNote = 
-// const noteB =
-// const noteC = 
+if (title && note {
+    // Variable for the object we will save
+    const newNote = {
+      title,
+      note,
+      review_id: uuid(),
+    };
 
+});
 
     //GET for the notes.html
     app.get('/', (req, res) =>
