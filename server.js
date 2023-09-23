@@ -13,9 +13,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 
+//GET for the notes.html
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/notes.html'))
+});
+
 //GET/api/notes to read db.json
 
-app.get('/api/notes', (req, res) => res.json(data));
+app.get('/api/notes', (req, res)  => {
+    fs.readFile(path.join(__dirname, data), 'UTF-8', (err, data) => {
+        res.json(JSON.parse(data))
+    });
+});
+
 
 
 // POST/api/notes to read the db.json
@@ -24,7 +34,7 @@ app.post('/api/notes', (req, res) => {
     if (req.body) {
         console.info(`${req.method} new note received`);
         data.push(req.body);
-        fs.writeFileSync('./db.json', JSON.stringify(data));
+        fs.writeFileSync(data, JSON.stringify(data));
         res.json(req.body);
     } else {
         res.status(400).json('Request body is missing');
@@ -50,16 +60,14 @@ app.post('/api/notes', (req, res) => {
     };
 })
 
-//GET for the notes.html
-app.get('/', (req, res) =>
-    res.sendFile(path.join(__dirname, '/public/notes'))
-);
+
 
 
 //GET * to return index.html
-app.get('*')('/api/', (req, res) => {
-    res.return(path, join(__dirname, '/public/index.html'))
-})
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/index.html'))
+});
+
 
 app.listen(PORT, () =>
     console.log(`App listening at http://localhost:${PORT} 🚀`)
