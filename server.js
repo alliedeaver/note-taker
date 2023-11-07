@@ -15,18 +15,16 @@ app.use(express.static('public'));
 
 //GET for the notes.html
 app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/notes.html'))
+    res.sendFile(path.join(__dirname, '/public/notes.html'))
 });
 
 //GET/api/notes to read db.json
 
 app.get('/api/notes', (req, res)  => {
-    fs.readFile(path.join(__dirname, data), 'UTF-8', (err, data) => {
+    fs.readFile(path.join(__dirname, 'db', 'db.json') , (err, data) => {
         res.json(JSON.parse(data))
     });
 });
-
-
 
 // POST/api/notes to read the db.json
 
@@ -39,7 +37,6 @@ app.post('/api/notes', (req, res) => {
     } else {
         res.status(400).json('Request body is missing');
     }
-
 });
 
 
@@ -59,8 +56,6 @@ app.post('/api/notes', (req, res) => {
 
     };
 })
-
-
 
 
 //GET * to return index.html
