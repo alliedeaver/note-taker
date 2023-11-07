@@ -39,7 +39,6 @@ app.post('/api/notes', (req, res) => {
     }
 });
 
-
 //POST/api/notes to receive a new note 
 app.post('/api/notes', (req, res) => {
     res.json(`${req.method} new note received`);
@@ -56,7 +55,6 @@ app.post('/api/notes', (req, res) => {
 
     };
 })
-
 
 //GET * to return index.html
 app.get('*', (req, res) => {
